@@ -8,7 +8,6 @@ import java.time.format.DateTimeFormatter;
 /**
  * Created by Nagy Dóra on 2017.05.17..
  */
-@Component
 public class LogMessage {
 
   private String path;
@@ -17,11 +16,11 @@ public class LogMessage {
   private String logLevel;
   private String requestData;
 
-  public LogMessage(String path, String method, String logLevel, String requestData) {
+  public LogMessage(String path, String method, String requestData) {
     this.path = path;
     this.method = method;
     this.dateAndTime = LocalDateTime.now();
-    this.logLevel = logLevel;
+    this.logLevel = "INFO";
     this.requestData = requestData;
   }
 
@@ -74,6 +73,7 @@ public class LogMessage {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss.SSS");
     return dateAndTime.format(formatter)
             + " " + logLevel
+            + " Request"
             + " " + path
             + " " + method
             + " " + requestData;
