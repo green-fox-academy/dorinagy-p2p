@@ -1,7 +1,7 @@
 package com.greenfox.dorinagy.chatapp.controller;
 
 import com.greenfox.dorinagy.chatapp.model.LogMessage;
-import com.greenfox.dorinagy.chatapp.model.User;
+import com.greenfox.dorinagy.chatapp.model.Username;
 import com.greenfox.dorinagy.chatapp.service.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -53,7 +53,7 @@ public class MainController {
   @PostMapping("/enter")
   public String redirect(String username) {
     System.out.println("Received username: " + username);
-    userRepo.save(new User(username));
+    userRepo.save(new Username(username));
     return "redirect:/";
   }
 }

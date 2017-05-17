@@ -9,7 +9,7 @@ import javax.persistence.Id;
  * Created by Nagy Dóra on 2017.05.17..
  */
 @Entity
-public class User {
+public class Username {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,7 +17,7 @@ public class User {
 
   private String username;
 
-  public User(String username) {
+  public Username(String username) {
     this.username = username;
   }
 
