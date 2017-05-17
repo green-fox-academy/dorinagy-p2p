@@ -1,6 +1,9 @@
 package com.greenfox.dorinagy.chatapp.controller;
 
 import com.greenfox.dorinagy.chatapp.model.LogMessage;
+import com.greenfox.dorinagy.chatapp.model.User;
+import com.greenfox.dorinagy.chatapp.service.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +15,9 @@ import org.springframework.web.servlet.NoHandlerFoundException;
  */
 @Controller
 public class MainController {
+
+  @Autowired
+  UserRepository userRepo;
 
   String chatAppUniqueId;
   String ChatAppPeerAdress;
@@ -45,7 +51,9 @@ public class MainController {
   }
 
   @PostMapping("/enter")
-  public String redirect() {
+  public String redirect(String username) {
+    System.out.println("Received username: " + username);
+    userRepo.save(new User(username));
     return "redirect:/";
   }
 }
