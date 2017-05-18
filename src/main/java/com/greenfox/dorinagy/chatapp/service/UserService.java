@@ -14,6 +14,8 @@ public class UserService {
   @Autowired
   UserRepository userRepo;
 
+  private String activeUser;
+
   public String registerUser(String username) {
     if (username.equals("")) {
       FrontEndMessage.setMessage("The username field is empty.");
@@ -27,6 +29,7 @@ public class UserService {
       }
     }
     userRepo.save(new ChatAppUser(username));
+    activeUser = username;
     FrontEndMessage.setMessage("User saved.");
     return "redirect:/";
   }
@@ -45,5 +48,13 @@ public class UserService {
     }
     FrontEndMessage.setMessage("This user doesn't exist. Please register.");
     return "redirect:/enter";
+  }
+
+  public String getActiveUser() {
+    return activeUser;
+  }
+
+  public void setActiveUser(String activeUser) {
+    this.activeUser = activeUser;
   }
 }

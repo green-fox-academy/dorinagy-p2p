@@ -15,15 +15,21 @@
          </tr>
      </form>
  </table>
-<ul>
-    <li>App</li>
-    <p>Hi there! Submit your message using the send button!</p>
-</ul>
+    <ul>
+        <li>App</li>
+        <p>Hi there! Submit your message using the send button!</p>
+    </ul>
+    <ul th:each="text : ${message}">
+        <li th:text="${text.getUsername()}">username</li>
+        <p th:text="${text.getText()}">text</p>
+    </ul>
 <table>
-    <tr>
-        <td><textarea type="text" name="message"/></td>
-        <td class="mesagebox"><input type="submit" value="send"/></td>
-    </tr>
+    <form action="/sendmessage" method="post">
+        <tr>
+            <td><textarea type="text" name="message"/></td>
+            <td class="mesagebox"><input type="submit" value="send"/></td>
+        </tr>
+    </form>
 </table>
 </body>
 </html>

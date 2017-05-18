@@ -1,6 +1,8 @@
 package com.greenfox.dorinagy.chatapp.controller;
 
+import com.greenfox.dorinagy.chatapp.model.ChatMessage;
 import com.greenfox.dorinagy.chatapp.model.FrontEndMessage;
+import com.greenfox.dorinagy.chatapp.service.ChatMessageService;
 import com.greenfox.dorinagy.chatapp.service.LogMessageService;
 import com.greenfox.dorinagy.chatapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,9 @@ public class MainController {
 
   @Autowired
   LogMessageService logMessageService;
+
+  @Autowired
+  ChatMessageService chatMessageService;
 
   /*String chatAppUniqueId;
   String ChatAppPeerAdress;
@@ -45,6 +50,7 @@ public class MainController {
   @GetMapping("/")
   public String mainPage(Model model) {
     model.addAttribute("frontendmessage", FrontEndMessage.getMessage());
+    model.addAttribute("message", chatMessageService.getMessages());
     return "index";
   }
 
