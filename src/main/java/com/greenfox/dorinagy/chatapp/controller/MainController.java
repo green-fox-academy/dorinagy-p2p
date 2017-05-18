@@ -1,13 +1,13 @@
 package com.greenfox.dorinagy.chatapp.controller;
 
-import com.greenfox.dorinagy.chatapp.model.Username;
+import com.greenfox.dorinagy.chatapp.model.FrontEndMessage;
 import com.greenfox.dorinagy.chatapp.service.LogMessageService;
-import com.greenfox.dorinagy.chatapp.service.UserRepository;
+import com.greenfox.dorinagy.chatapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 public class MainController {
 
   @Autowired
-  UserRepository userRepo;
+  UserService userService;
 
   @Autowired
   LogMessageService logMessageService;
@@ -39,25 +39,23 @@ public class MainController {
     return "redirect:/";
   }
 
-  @ModelAttribute
-  public void getInfo(HttpServletRequest httpServletRequest) {
-    logMessageService.getinfo(httpServletRequest);
-  }
-
   @GetMapping("/")
-  public String mainPage() {
+  public String mainPage(HttpServletRequest httpServletRequest) {
+    logMessageService.getinfo(httpServletRequest);
     return "index";
   }
 
   @GetMapping("/enter")
-  public String register() {
+  public String register(HttpServletRequest httpServletRequest) {
+    logMessageService.getinfo(httpServletRequest);
     return "enter";
   }
 
   @PostMapping("/enter")
-  public String redirect(String username) {
-    //System.out.println("Received username: " + username);
-    userRepo.save(new Username(username));
-    return "redirect:/";
+  public String redirect(HttpServletRequest httpServletRequest, Model model, String username) {
+    logMessageService.getinfo(httpServletRequest);
+    model.addAttribute("username", username);
+    model.addAttribute("frontendmessage", FrontEndMessage.getMessage());
+    return userService.registerUser(username);
   }
 }

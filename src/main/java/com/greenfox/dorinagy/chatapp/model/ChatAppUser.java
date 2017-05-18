@@ -1,15 +1,15 @@
 package com.greenfox.dorinagy.chatapp.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.springframework.stereotype.Component;
+
+import javax.persistence.*;
 
 /**
  * Created by Nagy Dóra on 2017.05.17..
  */
-@Entity
-public class Username {
+@Entity(name="usertable")
+@Component
+public class ChatAppUser {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,7 +17,10 @@ public class Username {
 
   private String username;
 
-  public Username(String username) {
+  public ChatAppUser() {
+  }
+
+  public ChatAppUser(String username) {
     this.username = username;
   }
 
@@ -27,5 +30,13 @@ public class Username {
 
   public void setUsername(String username) {
     this.username = username;
+  }
+
+  public long getId() {
+    return id;
+  }
+
+  public void setId(long id) {
+    this.id = id;
   }
 }

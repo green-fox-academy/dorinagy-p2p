@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
     <title>Enter</title>
 </head>
 <body>
     <h1>Enter</h1>
+    <p th:text="${frontendmessage}"/>
     <table>
         <form action="/enter" method="post">
             <tr>
