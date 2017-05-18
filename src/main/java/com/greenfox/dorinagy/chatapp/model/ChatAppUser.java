@@ -12,9 +12,10 @@ public class ChatAppUser {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  //@Column(name = "id")
+  @Column(name = "id")
   private long id;
 
+  @Column(name = "username")
   private String username;
 
   public ChatAppUser() {
