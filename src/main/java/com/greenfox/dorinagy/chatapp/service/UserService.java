@@ -43,7 +43,6 @@ public class UserService {
         return "redirect:/";
       }
     }
-    userRepo.save(new ChatAppUser(username));
     FrontEndMessage.setMessage("This user doesn't exist. Please register.");
     return "redirect:/enter";
   }

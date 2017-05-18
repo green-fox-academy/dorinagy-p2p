@@ -1,18 +1,18 @@
 package com.greenfox.dorinagy.chatapp.model;
 
-import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 
 /**
  * Created by Nagy Dóra on 2017.05.17..
  */
-@Entity(name="usertable")
-@Component
+@Entity
+@Table(name = "chatapp")
 public class ChatAppUser {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
+  //@Column(name = "id")
   private long id;
 
   private String username;

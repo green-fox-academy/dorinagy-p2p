@@ -6,9 +6,7 @@ import com.greenfox.dorinagy.chatapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,12 +23,17 @@ public class MainController {
   @Autowired
   LogMessageService logMessageService;
 
-  String chatAppUniqueId;
+  /*String chatAppUniqueId;
   String ChatAppPeerAdress;
 
   public MainController() {
     this.chatAppUniqueId = System.getenv("CHAT_APP_UNIQUE_ID");
     ChatAppPeerAdress = System.getenv("CHAT_APP_PEER_ADRESS");
+  }*/
+
+  @ModelAttribute
+  public void getInfo(HttpServletRequest httpServletRequest) {
+    logMessageService.getinfo(httpServletRequest);
   }
 
   @ExceptionHandler(value = NoHandlerFoundException.class)
@@ -40,22 +43,24 @@ public class MainController {
   }
 
   @GetMapping("/")
-  public String mainPage(HttpServletRequest httpServletRequest) {
-    logMessageService.getinfo(httpServletRequest);
+  public String mainPage(Model model) {
+    model.addAttribute("frontendmessage", FrontEndMessage.getMessage());
     return "index";
   }
 
   @GetMapping("/enter")
-  public String register(HttpServletRequest httpServletRequest) {
-    logMessageService.getinfo(httpServletRequest);
+  public String enter(Model model) {
+    model.addAttribute("frontendmessage", FrontEndMessage.getMessage());
     return "enter";
   }
 
-  @PostMapping("/enter")
-  public String redirect(HttpServletRequest httpServletRequest, Model model, String username) {
-    logMessageService.getinfo(httpServletRequest);
-    model.addAttribute("username", username);
-    model.addAttribute("frontendmessage", FrontEndMessage.getMessage());
+  @GetMapping("/registeruser")
+  public String register(@RequestParam(value="username") String username) {
     return userService.registerUser(username);
+  }
+
+  @GetMapping("/updateuser")
+  public String update(@RequestParam(value="username") String username) {
+    return userService.updateUser(username);
   }
 }
