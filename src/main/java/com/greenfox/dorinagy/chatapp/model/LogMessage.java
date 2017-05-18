@@ -2,30 +2,19 @@ package com.greenfox.dorinagy.chatapp.model;
 
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 /**
  * Created by Nagy Dóra on 2017.05.17..
  */
+@Component
 public class LogMessage {
 
   private String path;
   private String method;
-  private LocalDateTime dateAndTime;
+  private String dateAndTime;
   private String logLevel;
   private String requestData;
 
-  public LogMessage(String path, String method, String requestData) {
-    this.path = path;
-    this.method = method;
-    this.dateAndTime = LocalDateTime.now();
-    this.logLevel = "INFO";
-    this.requestData = requestData;
-  }
-
   public LogMessage() {
-
   }
 
   public String getPath() {
@@ -36,19 +25,19 @@ public class LogMessage {
     this.path = path;
   }
 
-  public String getMethod() {
+  public String getMehtod() {
     return method;
   }
 
-  public void setMethod(String method) {
-    this.method = method;
+  public void setMehtod(String mehtod) {
+    this.method = mehtod;
   }
 
-  public LocalDateTime getDateAndTime() {
+  public String getDateAndTime() {
     return dateAndTime;
   }
 
-  public void setDateAndTime(LocalDateTime dateAndTime) {
+  public void setDateAndTime(String dateAndTime) {
     this.dateAndTime = dateAndTime;
   }
 
@@ -66,16 +55,5 @@ public class LogMessage {
 
   public void setRequestData(String requestData) {
     this.requestData = requestData;
-  }
-
-  @Override
-  public String toString() {
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss.SSS");
-    return dateAndTime.format(formatter)
-            + " " + logLevel
-            + " Request"
-            + " " + path
-            + " " + method
-            + " " + requestData;
   }
 }

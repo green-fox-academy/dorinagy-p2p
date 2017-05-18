@@ -5,14 +5,13 @@ import javax.persistence.Entity;
 /**
  * Created by Nagy Dóra on 2017.05.18..
  */
-@Entity
-public class Message {
+public class ChatMessage {
 
   private long id;
   private String username;
   private String text;
 
-  public Message(String text) {
+  public ChatMessage(String text) {
     this.text = text;
   }
 

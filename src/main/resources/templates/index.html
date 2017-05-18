@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
     <title>Chat App</title>
+    <link rel="stylesheet" type="text/css" href="style.css"/>
 </head>
 <body>
  <h1>Peer to Peer Chat program</h1>
@@ -22,7 +23,7 @@
 <table>
     <tr>
         <td><input type="text" name="message"/></td>
-        <td><input type="submit" value="send"/></td>
+        <td class="mesagebox"><input type="submit" value="send"/></td>
     </tr>
 </table>
 </body>
