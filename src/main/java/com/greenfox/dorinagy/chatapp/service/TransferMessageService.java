@@ -31,15 +31,15 @@ public class TransferMessageService {
     restTemplate = new RestTemplate();
   }
 
-  public void transferOwnMessage(Message message) {
-    transferMessage.setMessage(message);
+  public void transferOwnMessage(ChatAppMessage chatAppMessage) {
+    transferMessage.setMessage(chatAppMessage);
     client.setId(userService.getActiveUser().getUsername());
     transferMessage.setClient(client);
     broadcast(transferMessage);
   }
 
   public void transferReceivedMessage(TransferMessage transferMessage) {
-    if(transferMessage.getMessage().getUsername().equals(chatAppUser)) {
+    if(transferMessage.getMessage().getUsername().equals(chatAppUser.getUsername())) {
       broadcast(transferMessage);
     }
   }

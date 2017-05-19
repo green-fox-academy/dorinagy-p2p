@@ -13,8 +13,8 @@ import java.util.Random;
  */
 @Entity
 @Component
-@Table(name="chattable")
-public class Message {
+@Table(name="chatappmessage")
+public class ChatAppMessage {
 
   @Id
   private int id = setRandomId();
@@ -22,7 +22,7 @@ public class Message {
   private String text;
   private Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
-  public Message() {
+  public ChatAppMessage() {
   }
 
   public int setRandomId() {

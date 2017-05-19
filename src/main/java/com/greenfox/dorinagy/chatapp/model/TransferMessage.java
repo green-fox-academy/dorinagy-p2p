@@ -8,17 +8,17 @@ import org.springframework.stereotype.Component;
 @Component
 public class TransferMessage {
 
-  Message message;
+  ChatAppMessage message;
   Client client;
 
   public TransferMessage() {
   }
 
-  public Message getMessage() {
+  public ChatAppMessage getMessage() {
     return message;
   }
 
-  public void setMessage(Message message) {
+  public void setMessage(ChatAppMessage chatAppMessage) {
     this.message = message;
   }
 

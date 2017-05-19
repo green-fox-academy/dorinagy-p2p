@@ -1,6 +1,6 @@
 package com.greenfox.dorinagy.chatapp.service;
 
-import com.greenfox.dorinagy.chatapp.model.Message;
+import com.greenfox.dorinagy.chatapp.model.ChatAppMessage;
 import com.greenfox.dorinagy.chatapp.model.TransferMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -25,20 +25,20 @@ public class ChatMessageService {
   }
 
   public void addNewChatMessage(String text) {
-    Message chatMessage = new Message();
-    chatMessage.setUsername(userService.getActiveUser().getUsername());
-    chatMessage.setText(text);
-    chatMessageRepo.save(chatMessage);
-    transferMessageService.transferOwnMessage(chatMessage);
+    ChatAppMessage chatChatAppMessage = new ChatAppMessage();
+    chatChatAppMessage.setUsername(userService.getActiveUser().getUsername());
+    chatChatAppMessage.setText(text);
+    chatMessageRepo.save(chatChatAppMessage);
+    transferMessageService.transferOwnMessage(chatChatAppMessage);
   }
 
   public void addNewReceivedMessage(TransferMessage transferMessage) {
-    Message message = new Message();
-    message.setId(transferMessage.getMessage().getId());
-    message.setText(transferMessage.getMessage().getText());
-    message.setUsername(transferMessage.getMessage().getUsername());
-    message.setTimestamp(transferMessage.getMessage().getTimestamp());
-    chatMessageRepo.save(message);
+    ChatAppMessage chatAppMessage = new ChatAppMessage();
+    chatAppMessage.setId(transferMessage.getMessage().getId());
+    chatAppMessage.setText(transferMessage.getMessage().getText());
+    chatAppMessage.setUsername(transferMessage.getMessage().getUsername());
+    chatAppMessage.setTimestamp(transferMessage.getMessage().getTimestamp());
+    chatMessageRepo.save(chatAppMessage);
     transferMessageService.transferReceivedMessage(transferMessage);
   }
 }

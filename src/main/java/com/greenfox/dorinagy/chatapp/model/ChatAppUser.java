@@ -9,7 +9,7 @@ import javax.persistence.*;
  * Created by Nagy Dóra on 2017.05.17..
  */
 @Entity
-@Table(name = "chatapp")
+@Table(name = "chatappuser")
 @Component
 public class ChatAppUser {
 
