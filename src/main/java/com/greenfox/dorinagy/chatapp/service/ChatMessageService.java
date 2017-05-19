@@ -1,6 +1,7 @@
 package com.greenfox.dorinagy.chatapp.service;
 
-import com.greenfox.dorinagy.chatapp.model.ChatMessage;
+import com.greenfox.dorinagy.chatapp.model.Message;
+import com.greenfox.dorinagy.chatapp.model.TransferMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,9 +22,18 @@ public class ChatMessageService {
   }
 
   public void addNewChatMessage(String text) {
-    ChatMessage chatMessage = new ChatMessage();
-    chatMessage.setUsername(userService.getActiveUser());
+    Message chatMessage = new Message();
+    chatMessage.setUsername(userService.getActiveUser().getUsername());
     chatMessage.setText(text);
-    chatMessageRepo.save(new ChatMessage());
+    chatMessageRepo.save(chatMessage);
+  }
+
+  public void addNewReceivedMessage(TransferMessage transferMessage) {
+    Message message = new Message();
+    message.setId(transferMessage.getMessage().getId());
+    message.setText(transferMessage.getMessage().getText());
+    message.setUsername(transferMessage.getMessage().getUsername());
+    message.setTimestamp(transferMessage.getMessage().getTimestamp());
+    chatMessageRepo.save(message);
   }
 }

@@ -14,15 +14,15 @@ import java.util.Random;
 @Entity
 @Component
 @Table(name="chattable")
-public class ChatMessage {
+public class Message {
 
   @Id
   private int id = setRandomId();
   private String username;
   private String text;
-  private Timestamp timestamp = new Timestamp(System.currentTimeMillis());;
+  private Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
-  public ChatMessage() {
+  public Message() {
   }
 
   public int setRandomId() {

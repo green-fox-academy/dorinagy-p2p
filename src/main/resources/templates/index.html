@@ -19,9 +19,9 @@
         <li>App</li>
         <p>Hi there! Submit your message using the send button!</p>
     </ul>
-    <ul th:each="text : ${message}">
-        <li th:text="${text.getUsername()}">username</li>
-        <p th:text="${text.getText()}">text</p>
+    <ul th:each="message : ${messagelist}">
+        <li th:text="${message.getUsername()}">username</li>
+        <p th:text="${message.getText()}">message</p>
     </ul>
 <table>
     <form action="/sendmessage" method="post">

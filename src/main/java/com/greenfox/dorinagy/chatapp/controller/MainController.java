@@ -1,6 +1,5 @@
 package com.greenfox.dorinagy.chatapp.controller;
 
-import com.greenfox.dorinagy.chatapp.model.ChatMessage;
 import com.greenfox.dorinagy.chatapp.model.FrontEndMessage;
 import com.greenfox.dorinagy.chatapp.service.ChatMessageService;
 import com.greenfox.dorinagy.chatapp.service.LogMessageService;
@@ -50,7 +49,7 @@ public class MainController {
   @GetMapping("/")
   public String mainPage(Model model) {
     model.addAttribute("frontendmessage", FrontEndMessage.getMessage());
-    model.addAttribute("message", chatMessageService.getMessages());
+    model.addAttribute("messagelist", chatMessageService.getMessages());
     return "index";
   }
 

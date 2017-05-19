@@ -14,7 +14,7 @@ public class UserService {
   @Autowired
   UserRepository userRepo;
 
-  private String activeUser;
+  private ChatAppUser activeUser;
 
   public String registerUser(String username) {
     if (username.equals("")) {
@@ -28,8 +28,9 @@ public class UserService {
         return "redirect:/enter";
       }
     }
-    userRepo.save(new ChatAppUser(username));
-    activeUser = username;
+    ChatAppUser userToRegister = new ChatAppUser((username));
+    userRepo.save(userToRegister);
+    activeUser = userToRegister;
     FrontEndMessage.setMessage("User saved.");
     return "redirect:/";
   }
@@ -50,11 +51,14 @@ public class UserService {
     return "redirect:/enter";
   }
 
-  public String getActiveUser() {
-    return activeUser;
+  public ChatAppUser getActiveUser() {
+    if(activeUser == null) {
+      return userRepo.findOne(1l);
+    } else
+      return activeUser;
   }
 
-  public void setActiveUser(String activeUser) {
+  public void setActiveUser(ChatAppUser activeUser) {
     this.activeUser = activeUser;
   }
 }
