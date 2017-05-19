@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created by Nagy Dóra on 2017.05.17..
@@ -67,5 +68,11 @@ public class MainController {
   @GetMapping("/updateuser")
   public String update(@RequestParam(value="username") String username) {
     return userService.updateUser(username);
+  }
+
+  @PostMapping(value="sendmessage")
+  public String addMessage(String message) throws Exception {
+    chatMessageService.addNewChatMessage(message);
+    return "redirect:/";
   }
 }

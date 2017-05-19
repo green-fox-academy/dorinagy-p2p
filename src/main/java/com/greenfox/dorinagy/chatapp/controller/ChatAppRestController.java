@@ -24,12 +24,6 @@ public class ChatAppRestController {
   @Autowired
   ResponseService responseService;
 
-  @PostMapping(value="sendmessage")
-  public void addMessage(HttpServletResponse httpServletResponse, String message) throws Exception {
-    chatMessageService.addNewChatMessage(message);
-    httpServletResponse.sendRedirect("/");
-  }
-
   @PostMapping("/api/message/receive")
   public ResponseObject addNewReceivedMessage(@RequestBody TransferMessage transferMessage) {
     chatMessageService.addNewReceivedMessage(transferMessage);
