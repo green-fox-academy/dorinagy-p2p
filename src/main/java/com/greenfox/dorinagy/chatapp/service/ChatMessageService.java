@@ -17,6 +17,9 @@ public class ChatMessageService {
   @Autowired
   UserService userService;
 
+  @Autowired
+  TransferMessageService transferMessageService;
+
   public Iterable getMessages() {
     return chatMessageRepo.findAll();
   }
@@ -26,6 +29,7 @@ public class ChatMessageService {
     chatMessage.setUsername(userService.getActiveUser().getUsername());
     chatMessage.setText(text);
     chatMessageRepo.save(chatMessage);
+    transferMessageService.transferOwnMessage(chatMessage);
   }
 
   public void addNewReceivedMessage(TransferMessage transferMessage) {
@@ -35,5 +39,6 @@ public class ChatMessageService {
     message.setUsername(transferMessage.getMessage().getUsername());
     message.setTimestamp(transferMessage.getMessage().getTimestamp());
     chatMessageRepo.save(message);
+    transferMessageService.transferReceivedMessage(message);
   }
 }

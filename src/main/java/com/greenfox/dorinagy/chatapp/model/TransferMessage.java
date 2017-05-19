@@ -1,8 +1,11 @@
 package com.greenfox.dorinagy.chatapp.model;
 
+import org.springframework.stereotype.Component;
+
 /**
  * Created by Nagy Dóra on 2017.05.19..
  */
+@Component
 public class TransferMessage {
 
   Message message;

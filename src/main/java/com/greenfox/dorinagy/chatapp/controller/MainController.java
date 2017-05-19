@@ -1,6 +1,8 @@
 package com.greenfox.dorinagy.chatapp.controller;
 
 import com.greenfox.dorinagy.chatapp.model.FrontEndMessage;
+import com.greenfox.dorinagy.chatapp.model.ResponseOK;
+import com.greenfox.dorinagy.chatapp.model.TransferMessage;
 import com.greenfox.dorinagy.chatapp.service.ChatMessageService;
 import com.greenfox.dorinagy.chatapp.service.LogMessageService;
 import com.greenfox.dorinagy.chatapp.service.UserService;
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,13 +31,13 @@ public class MainController {
   @Autowired
   ChatMessageService chatMessageService;
 
-  /*String chatAppUniqueId;
+  String chatAppUniqueId;
   String ChatAppPeerAdress;
 
   public MainController() {
     this.chatAppUniqueId = System.getenv("CHAT_APP_UNIQUE_ID");
     ChatAppPeerAdress = System.getenv("CHAT_APP_PEER_ADRESS");
-  }*/
+  }
 
   @ModelAttribute
   public void getInfo(HttpServletRequest httpServletRequest) {
@@ -70,9 +73,22 @@ public class MainController {
     return userService.updateUser(username);
   }
 
+
+  String url = "https://lengyelnorbert.herokuapp.com";
+  RestTemplate restTemplate = new RestTemplate();
+
+
   @PostMapping(value="sendmessage")
   public String addMessage(String message) throws Exception {
     chatMessageService.addNewChatMessage(message);
+
+    TransferMessage transferMessage = new TransferMessage();
+
+    ResponseOK responseOK = restTemplate.postForObject(url, transferMessage, ResponseOK.class);
+
+    chatMessageService.addNewReceivedMessage(transferMessage);
+    System.out.println(responseOK);
+
     return "redirect:/";
   }
 }

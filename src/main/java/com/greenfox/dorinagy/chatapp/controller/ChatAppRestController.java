@@ -5,10 +5,7 @@ import com.greenfox.dorinagy.chatapp.model.TransferMessage;
 import com.greenfox.dorinagy.chatapp.service.ChatMessageService;
 import com.greenfox.dorinagy.chatapp.service.ResponseService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -25,6 +22,7 @@ public class ChatAppRestController {
   ResponseService responseService;
 
   @PostMapping("/api/message/receive")
+  @CrossOrigin("*")
   public ResponseObject addNewReceivedMessage(@RequestBody TransferMessage transferMessage) {
     chatMessageService.addNewReceivedMessage(transferMessage);
     return responseService.statusOK();
