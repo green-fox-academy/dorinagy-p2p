@@ -39,6 +39,6 @@ public class ChatMessageService {
     message.setUsername(transferMessage.getMessage().getUsername());
     message.setTimestamp(transferMessage.getMessage().getTimestamp());
     chatMessageRepo.save(message);
-    transferMessageService.transferReceivedMessage(message);
+    transferMessageService.transferReceivedMessage(transferMessage);
   }
 }

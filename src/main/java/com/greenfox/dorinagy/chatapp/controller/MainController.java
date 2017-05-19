@@ -74,8 +74,8 @@ public class MainController {
   }
 
 
-  String url = "https://lengyelnorbert.herokuapp.com";
-  RestTemplate restTemplate = new RestTemplate();
+  //String url = "https://phorv1chatapp.herokuapp.com";
+ // RestTemplate restTemplate = new RestTemplate();
 
 
   @PostMapping(value="sendmessage")
@@ -84,10 +84,10 @@ public class MainController {
 
     TransferMessage transferMessage = new TransferMessage();
 
-    ResponseOK responseOK = restTemplate.postForObject(url, transferMessage, ResponseOK.class);
+    //ResponseOK responseOK = restTemplate.postForObject(url, transferMessage, ResponseOK.class);
 
     chatMessageService.addNewReceivedMessage(transferMessage);
-    System.out.println(responseOK);
+    //System.out.println(responseOK);
 
     return "redirect:/";
   }
