@@ -11,5 +11,4 @@ import java.util.List;
  */
 @Component
 public interface UserRepository extends CrudRepository<ChatAppUser, Long> {
-  List<ChatAppUser> findAll();
 }

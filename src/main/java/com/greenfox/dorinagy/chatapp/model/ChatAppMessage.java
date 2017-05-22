@@ -4,38 +4,26 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import java.sql.Timestamp;
-import java.util.Random;
-
 /**
  * Created by Nagy Dóra on 2017.05.18..
  */
 @Entity
 @Component
-@Table(name="chatappmessage")
 public class ChatAppMessage {
 
   @Id
-  private int id = setRandomId();
+  private long id;
   private String username;
   private String text;
-  private Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+  private Timestamp timestamp;
 
-  public ChatAppMessage() {
-  }
-
-  public int setRandomId() {
-    Random random = new Random();
-    return random.nextInt(9999999 - 1000000 + 1) - 1000000;
-  }
-
-  public int getId() {
+  public long getId() {
     return id;
   }
 
-  public void setId(int id) {
-    this.id = id;
+  public void setId() {
+    this.id = getRandomNumber();
   }
 
   public String getUsername() {
@@ -60,5 +48,9 @@ public class ChatAppMessage {
 
   public void setTimestamp(Timestamp timestamp) {
     this.timestamp = timestamp;
+  }
+
+  public long getRandomNumber() {
+    return (1000000 + (long) (Math.random() * 9000000));
   }
 }

@@ -10,6 +10,5 @@ import java.util.List;
  * Created by Nagy Dóra on 2017.05.18..
  */
 @Component
-public interface ChatMessageRepository extends CrudRepository<ChatAppMessage, Long> {
-  List<ChatAppMessage> findAll();
+public interface MessageRepository extends CrudRepository<ChatAppMessage, Long> {
 }

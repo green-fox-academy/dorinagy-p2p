@@ -9,16 +9,14 @@ import javax.persistence.*;
  * Created by Nagy Dóra on 2017.05.17..
  */
 @Entity
-@Table(name = "chatappuser")
 @Component
 public class ChatAppUser {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "id")
   private long id;
 
-  @Column(name = "username")
+  @Column(unique = true)
   private String username;
 
   public ChatAppUser() {

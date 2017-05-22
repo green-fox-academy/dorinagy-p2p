@@ -1,15 +1,14 @@
 package com.greenfox.dorinagy.chatapp.model;
 
+import org.springframework.stereotype.Component;
+
 /**
  * Created by Nagy Dóra on 2017.05.19..
  */
-public class ResponseOK implements ResponseObject {
+@Component
+public class Status {
 
   private String status;
-
-  public ResponseOK() {
-    this.status = "ok";
-  }
 
   public String getStatus() {
     return status;
