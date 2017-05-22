@@ -38,7 +38,7 @@
                         <p>App</p>
                     </ul>
                     <ul th:each="message : ${messagelist}">
-                        <li><span class="btn btn-primary btn-sm"><strong> th:text="${message.getText()}">message</strong></span></li>
+                        <li><span class="btn btn-primary btn-sm" th:text="${message.getText()}">message</span></li>
                         <p th:text="${message.getUsername()}">username</p>
                     </ul>
                     <table>

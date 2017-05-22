@@ -73,7 +73,7 @@ public class MainController {
     return userService.updateUser(username);
   }
 
-  @PostMapping(value="sendmessage")
+  @PostMapping(value="/sendmessage")
   public String addMessage(String message) throws Exception {
     chatMessageService.addNewChatMessage(message);
     TransferMessage transferMessage = new TransferMessage();
