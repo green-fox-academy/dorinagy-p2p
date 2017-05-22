@@ -7,16 +7,17 @@
     <link href="webjars/bootstrap/3.3.7-1/css/bootstrap.min.css" rel="stylesheet"/>
 </head>
 <body>
- <h1>Peer to Peer Chat program</h1>
- <table>
-     <form action="/updateuser">
-         <tr>
-             <td>Your username:</td>
-             <td><input type="text" name="username"/></td>
-             <td><input type="submit" value="update"/></td>
-         </tr>
-     </form>
- </table>
+<div class="container-fluid">
+    <h1>Peer to Peer Chat program</h1>
+    <table>
+        <form action="/updateuser">
+            <tr>
+                <td>Your username:</td>
+                <td><input type="text" name="username"/></td>
+                <td><input class="btn btn-primary btn-sm" type="submit" value="update"/></td>
+            </tr>
+        </form>
+    </table>
     <ul>
         <li>App</li>
         <p>Hi there! Submit your message using the send button!</p>
@@ -25,16 +26,19 @@
         <li th:text="${message.getUsername()}">username</li>
         <p th:text="${message.getText()}">message</p>
     </ul>
-<table>
-    <form action="/sendmessage" method="post">
-        <tr>
-            <td><textarea type="text" name="message"/></td>
-            <td class="mesagebox"><input type="submit" value="send"/></td>
-        </tr>
-    </form>
-</table>
- <a th:href="@{'/'}">Refresh</a>
- <script src="webjars/jquery/1.11.1/jquery.min.js"></script>
- <script src="webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>
+    <table>
+        <form action="/sendmessage" method="post">
+            <tr>
+                <td><textarea type="text" name="message"/></td>
+            </tr>
+            <tr>
+                <td><input class="btn btn-primary btn-sm" type="submit" value="send"/>
+                <a class="btn btn-default btn-sm" th:href="@{'/'}">Refresh</a></td>
+            </tr>
+        </form>
+    </table>
+</div>
+<script src="webjars/jquery/1.11.1/jquery.min.js"></script>
+<script src="webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>
 </body>
 </html>
