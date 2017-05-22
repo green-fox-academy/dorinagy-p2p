@@ -1,7 +1,6 @@
 package com.greenfox.dorinagy.chatapp.controller;
 
 import com.greenfox.dorinagy.chatapp.model.FrontEndMessage;
-import com.greenfox.dorinagy.chatapp.model.ResponseOK;
 import com.greenfox.dorinagy.chatapp.model.TransferMessage;
 import com.greenfox.dorinagy.chatapp.service.ChatMessageService;
 import com.greenfox.dorinagy.chatapp.service.LogMessageService;
@@ -10,11 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created by Nagy Dóra on 2017.05.17..
@@ -73,22 +70,11 @@ public class MainController {
     return userService.updateUser(username);
   }
 
-
-  //String url = "https://phorv1chatapp.herokuapp.com";
- // RestTemplate restTemplate = new RestTemplate();
-
-
   @PostMapping(value="sendmessage")
   public String addMessage(String message) throws Exception {
     chatMessageService.addNewChatMessage(message);
-
     TransferMessage transferMessage = new TransferMessage();
-
-    //ResponseOK responseOK = restTemplate.postForObject(url, transferMessage, ResponseOK.class);
-
     chatMessageService.addNewReceivedMessage(transferMessage);
-    //System.out.println(responseOK);
-
     return "redirect:/";
   }
 }
