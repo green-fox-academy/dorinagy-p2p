@@ -39,7 +39,7 @@ public class TransferMessageService {
   }
 
   public void transferReceivedMessage(TransferMessage transferMessage) {
-    if(transferMessage.getMessage().getUsername().equals(chatAppUser.getUsername())) {
+    if(!transferMessage.getClient().getId().equals(userService.getActiveUser().getUsername())) {
       broadcast(transferMessage);
     }
   }
