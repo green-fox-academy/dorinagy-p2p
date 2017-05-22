@@ -1,7 +1,8 @@
 package com.greenfox.dorinagy.chatapp.service;
 
 import com.greenfox.dorinagy.chatapp.model.ChatAppUser;
-import com.greenfox.dorinagy.chatapp.model.FrontEndMessage;
+import com.greenfox.dorinagy.chatapp.model.FrontEndError;
+import com.greenfox.dorinagy.chatapp.model.FrontEndOK;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,36 +19,36 @@ public class UserService {
 
   public String registerUser(String username) {
     if (username.equals("")) {
-      FrontEndMessage.setMessage("The username field is empty.");
+      FrontEndError.setMessage("The username field is empty.");
       return "redirect:/enter";
     }
     Iterable<ChatAppUser> users = userRepo.findAll();
     for (ChatAppUser user : users) {
       if (username.equals(user.getUsername())) {
-        FrontEndMessage.setMessage("This user already exists");
+        FrontEndError.setMessage("This user already exists");
         return "redirect:/enter";
       }
     }
     ChatAppUser userToRegister = new ChatAppUser((username));
     userRepo.save(userToRegister);
     activeUser = userToRegister;
-    FrontEndMessage.setMessage("User saved.");
+    FrontEndOK.setMessage("User saved.");
     return "redirect:/";
   }
 
   public String updateUser(String username) {
     if (username.equals("")) {
-      FrontEndMessage.setMessage("The username field is empty.");
+      FrontEndError.setMessage("The username field is empty.");
       return "redirect:/";
     }
     Iterable<ChatAppUser> users = userRepo.findAll();
     for (ChatAppUser user : users) {
       if (username.equals(user.getUsername())) {
-        FrontEndMessage.setMessage("Welcome " + username + "!");
+        FrontEndOK.setMessage("Welcome " + username + "!");
         return "redirect:/";
       }
     }
-    FrontEndMessage.setMessage("This user doesn't exist. Please register.");
+    FrontEndError.setMessage("This user doesn't exist. Please register.");
     return "redirect:/enter";
   }
 

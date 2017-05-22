@@ -3,11 +3,11 @@ package com.greenfox.dorinagy.chatapp.model;
 /**
  * Created by Nagy Dóra on 2017.05.18..
  */
-public class FrontEndMessage {
+public class FrontEndOK {
 
   static String message = "";
 
-  public FrontEndMessage(String message) {
+  public FrontEndOK(String message) {
     this.message = message;
   }
 
@@ -16,6 +16,6 @@ public class FrontEndMessage {
   }
 
   public static void setMessage(String message) {
-    FrontEndMessage.message = message;
+    FrontEndOK.message = message;
   }
 }

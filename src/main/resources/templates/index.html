@@ -9,34 +9,57 @@
 <body>
 <div class="container-fluid">
     <h1>Peer to Peer Chat program</h1>
-    <table>
-        <form action="/updateuser">
-            <tr>
-                <td>Your username:</td>
-                <td><input type="text" name="username"/></td>
-                <td><input class="btn btn-primary btn-sm" type="submit" value="update"/></td>
-            </tr>
-        </form>
-    </table>
-    <ul>
-        <li>App</li>
-        <p>Hi there! Submit your message using the send button!</p>
-    </ul>
-    <ul th:each="message : ${messagelist}">
-        <li th:text="${message.getUsername()}">username</li>
-        <p th:text="${message.getText()}">message</p>
-    </ul>
-    <table>
-        <form action="/sendmessage" method="post">
-            <tr>
-                <td><textarea type="text" name="message"/></td>
-            </tr>
-            <tr>
-                <td><input class="btn btn-primary btn-sm" type="submit" value="send"/>
-                <a class="btn btn-default btn-sm" th:href="@{'/'}">Refresh</a></td>
-            </tr>
-        </form>
-    </table>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="alert alert-info" role="alert">
+                <p th:text="${frontendok}"/>
+            </div>
+            <div class="alert alert-danger" role="alert">
+                <p th:text="${frontenderror}"/>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">User</div>
+                <div class="panel-body">
+                    <table>
+                        <form action="/updateuser">
+                            <tr>
+                                <td><strong>Your username:</strong></td>
+                                <td><input type="text" name="username"/></td>
+                                <td></td>
+                                <td><input class="btn btn-primary btn-sm" type="submit" value="update"/></td>
+                            </tr>
+                        </form>
+                    </table>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">Chat</div>
+                <div class="panel-body">
+                    <ul>
+                        <li><span class="btn btn-primary btn-sm"><strong>Hi there! Submit your message using the send button!</strong></span></li>
+                        <p>App</p>
+                    </ul>
+                    <ul th:each="message : ${messagelist}">
+                        <li><span class="btn btn-primary btn-sm"><strong> th:text="${message.getText()}">message</strong></span></li>
+                        <p th:text="${message.getUsername()}">username</p>
+                    </ul>
+                    <table>
+                        <p><strong>Message</strong></p>
+                        <form action="/sendmessage" method="post">
+                            <tr>
+                                <td><textarea cols="115" type="text" name="message"/></td>
+                            </tr>
+                            <tr>
+                                <td><input class="btn btn-primary btn-sm" type="submit" value="send"/>
+                                    <a class="btn btn-default btn-sm" th:href="@{'/'}">Refresh</a></td>
+                            </tr>
+                        </form>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <script src="webjars/jquery/1.11.1/jquery.min.js"></script>
 <script src="webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>
