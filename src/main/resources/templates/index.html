@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Chat App</title>
-    <meta http-equiv="refresh" content="15"/>
+    <meta http-equiv="refresh" content="30"/>
     <link href="webjars/bootstrap/3.3.7-1/css/bootstrap.min.css" rel="stylesheet"/>
 </head>
 <body>
@@ -12,18 +12,17 @@
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8">
-            <div class="alert alert-danger" role="alert">
-                <p th:text="${frontenderror}"/>
-            </div>
+            
+            <div class="alert alert-danger" role="alert"></div>
+
             <div class="panel panel-default">
                 <div class="panel-heading">User</div>
                 <div class="panel-body">
-                    <table cellpadding="20">
-                        <form action="/updateuser">
+                    <table>
+                        <form action="/enter">
                             <tr>
                                 <td><strong>Your username</strong></td>
-                                <td><input type="text" name="username"/></td>
-                                <td></td>
+                                <td><input type="text" th:value="${userentry}" name="userentry"/></td>
                                 <td><input class="btn btn-primary btn-sm" type="submit" value="update"/></td>
                             </tr>
                         </form>
@@ -37,13 +36,13 @@
                         <li><span class="btn btn-primary btn-sm"><strong>Hi there! Submit your message using the send button!</strong></span></li>
                         <p>App</p>
                     </ul>
-                    <ul th:each="message : ${messagelist}">
+                    <ul th:each="message : ${messages}">
                         <li><span class="btn btn-primary btn-sm" th:text="${message.getText()}">message</span></li>
                         <p th:text="${message.getUsername()}">username</p>
                     </ul>
                     <table>
                         <p><strong>Message</strong></p>
-                        <form action="/sendmessage" method="post">
+                        <form action="/send" method="post">
                             <tr>
                                 <td><textarea type="text" name="message"/></td>
                             </tr>

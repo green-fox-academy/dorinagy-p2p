@@ -8,7 +8,6 @@ import java.time.format.DateTimeFormatter;
 /**
  * Created by Nagy Dóra on 2017.05.17..
  */
-@Component
 public class LogMessage {
 
   private String path;

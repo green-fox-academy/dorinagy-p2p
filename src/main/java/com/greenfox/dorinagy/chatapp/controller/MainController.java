@@ -61,13 +61,13 @@ public class MainController {
   @GetMapping(value = "/enter")
   public String registerPage(Model model) {
     model.addAttribute("userentry", nameOfUser.getUsername());
-    return "register";
+    return "enter";
   }
 
   @PostMapping(value = "/enter")
   public String addNewUser(String userentry) {
     if (userentry.equals("")) {
-      return "register-error";
+      return "";
     }
     nameOfUser.setUsername(userentry);
     nameOfUser.setId(1l);

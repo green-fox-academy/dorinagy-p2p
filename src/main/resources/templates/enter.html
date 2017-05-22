@@ -7,22 +7,27 @@
 </head>
 <body>
 <div class="container-fluid">
-    <h1>Enter</h1>
+    <h1>Peer to Peer Chat program</h1>
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8">
-            <div class="alert alert-danger" role="alert">
-                <p th:text="${frontenderror}"/>
+
+            <div class="alert alert-danger" role="alert"></div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">User</div>
+                <div class="panel-body">
+                    <table>
+                        <form action="/enter">
+                            <tr>
+                                <td><strong>Chose your name</strong></td>
+                                <td><input type="text" th:value="${userentry}" name="userentry"/></td>
+                                <td><input type="submit" value="Enter"/></td>
+                            </tr>
+                        </form>
+                    </table>
+                </div>
             </div>
-            <table>
-                <form action="/registeruser">
-                    <tr>
-                        <td>Chose your name:</td>
-                        <td><input type="text" name="username"/></td>
-                        <td><input type="submit" value="Enter"/></td>
-                    </tr>
-                </form>
-            </table>
         </div>
     </div>
 </div>
