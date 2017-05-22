@@ -25,14 +25,14 @@ public class UserService {
     Iterable<ChatAppUser> users = userRepo.findAll();
     for (ChatAppUser user : users) {
       if (username.equals(user.getUsername())) {
-        FrontEndError.setMessage("This user already exists");
+        //FrontEndError.setMessage("This user already exists");
         return "redirect:/enter";
       }
     }
     ChatAppUser userToRegister = new ChatAppUser((username));
     userRepo.save(userToRegister);
     activeUser = userToRegister;
-    FrontEndOK.setMessage("User saved.");
+    //FrontEndOK.setMessage("User saved.");
     return "redirect:/";
   }
 
@@ -44,11 +44,11 @@ public class UserService {
     Iterable<ChatAppUser> users = userRepo.findAll();
     for (ChatAppUser user : users) {
       if (username.equals(user.getUsername())) {
-        FrontEndOK.setMessage("Welcome " + username + "!");
+        //FrontEndOK.setMessage("Welcome " + username + "!");
         return "redirect:/";
       }
     }
-    FrontEndError.setMessage("This user doesn't exist. Please register.");
+    //FrontEndError.setMessage("This user doesn't exist. Please register.");
     return "redirect:/enter";
   }
 

@@ -50,7 +50,7 @@ public class MainController {
 
   @GetMapping("/")
   public String mainPage(Model model) {
-    model.addAttribute("frontendok", FrontEndOK.getMessage());
+    //model.addAttribute("frontendok", FrontEndOK.getMessage());
     model.addAttribute("frontenderror", FrontEndError.getMessage());
     model.addAttribute("messagelist", chatMessageService.getMessages());
     return "index";
@@ -58,7 +58,7 @@ public class MainController {
 
   @GetMapping("/enter")
   public String enter(Model model) {
-    model.addAttribute("frontendok", FrontEndOK.getMessage());
+    //model.addAttribute("frontendok", FrontEndOK.getMessage());
     model.addAttribute("frontenderror", FrontEndError.getMessage());
     return "enter";
   }

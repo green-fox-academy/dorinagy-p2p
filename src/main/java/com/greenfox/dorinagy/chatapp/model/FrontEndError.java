@@ -5,7 +5,7 @@ package com.greenfox.dorinagy.chatapp.model;
  */
 public class FrontEndError {
 
-  static String message = "";
+  static String message;
 
   public FrontEndError(String message) {
     this.message = message;
@@ -16,6 +16,6 @@ public class FrontEndError {
   }
 
   public static void setMessage(String message) {
-    FrontEndOK.message = message;
+    FrontEndError.message = message;
   }
 }
