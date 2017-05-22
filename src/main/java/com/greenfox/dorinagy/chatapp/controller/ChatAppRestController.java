@@ -1,13 +1,11 @@
 package com.greenfox.dorinagy.chatapp.controller;
 
-import com.greenfox.dorinagy.chatapp.model.ResponseObject;
-import com.greenfox.dorinagy.chatapp.model.TransferMessage;
-import com.greenfox.dorinagy.chatapp.service.ChatMessageService;
-import com.greenfox.dorinagy.chatapp.service.ResponseService;
+import com.greenfox.dorinagy.chatapp.model.JsonReceived;
+import com.greenfox.dorinagy.chatapp.model.Status;
+import com.greenfox.dorinagy.chatapp.service.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletResponse;
+import org.springframework.web.client.RestTemplate;
 
 /**
  * Created by Nagy Dóra on 2017.05.18..
@@ -16,15 +14,23 @@ import javax.servlet.http.HttpServletResponse;
 public class ChatAppRestController {
 
   @Autowired
-  ChatMessageService chatMessageService;
+  MessageRepository messagesRepository;
 
   @Autowired
-  ResponseService responseService;
+  Status status;
 
-  @PostMapping("/api/message/receive")
+  RestTemplate restTemplate = new RestTemplate();
+
+  String url = "http://phorv1chatapp.herokuapp.com/api/message/receive";
+
   @CrossOrigin("*")
-  public ResponseObject addNewReceivedMessage(@RequestBody TransferMessage transferMessage) {
-    chatMessageService.addNewReceivedMessage(transferMessage);
-    return responseService.statusOK();
+  @RequestMapping(value = "/api/message/receive")
+  public Status receiveMessage(@RequestBody JsonReceived jsonReceived) {
+
+    messagesRepository.save(jsonReceived.getMessage());
+    status.setStatus("ok");
+    restTemplate.postForObject(url, jsonReceived, JsonReceived.class);
+
+    return status;
   }
 }

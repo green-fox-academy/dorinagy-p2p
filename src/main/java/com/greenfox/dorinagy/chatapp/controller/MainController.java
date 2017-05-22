@@ -1,18 +1,16 @@
 package com.greenfox.dorinagy.chatapp.controller;
 
-import com.greenfox.dorinagy.chatapp.model.FrontEndError;
-import com.greenfox.dorinagy.chatapp.model.FrontEndOK;
-import com.greenfox.dorinagy.chatapp.model.TransferMessage;
-import com.greenfox.dorinagy.chatapp.service.ChatMessageService;
-import com.greenfox.dorinagy.chatapp.service.LogMessageService;
-import com.greenfox.dorinagy.chatapp.service.UserService;
+import com.greenfox.dorinagy.chatapp.model.*;
+import com.greenfox.dorinagy.chatapp.service.MessageRepository;
+import com.greenfox.dorinagy.chatapp.service.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
-import javax.servlet.http.HttpServletRequest;
+import java.sql.Timestamp;
 
 /**
  * Created by Nagy Dóra on 2017.05.17..
@@ -21,63 +19,77 @@ import javax.servlet.http.HttpServletRequest;
 public class MainController {
 
   @Autowired
-  UserService userService;
-
+  UserRepository repository;
   @Autowired
-  LogMessageService logMessageService;
-
+  ChatAppUser nameOfUser;
   @Autowired
-  ChatMessageService chatMessageService;
+  ChatAppMessage chatAppMessages;
+  @Autowired
+  MessageRepository messagesRepository;
+  @Autowired
+  Client client;
+
+  RestTemplate restTemplate = new RestTemplate();
 
   String chatAppUniqueId;
-  String ChatAppPeerAdress;
+  String chatAppPeerAddress;
 
   public MainController() {
     this.chatAppUniqueId = System.getenv("CHAT_APP_UNIQUE_ID");
-    ChatAppPeerAdress = System.getenv("CHAT_APP_PEER_ADRESS");
-  }
-
-  @ModelAttribute
-  public void getInfo(HttpServletRequest httpServletRequest) {
-    logMessageService.getinfo(httpServletRequest);
+    this.chatAppPeerAddress = System.getenv("CHAT_APP_PEER_ADDRESSS");
   }
 
   @ExceptionHandler(value = NoHandlerFoundException.class)
-  public String errorHandler() {
+  public String notFound() {
     System.err.println("ERROR");
     return "redirect:/";
   }
 
-  @GetMapping("/")
+  @GetMapping(value = "/")
   public String mainPage(Model model) {
-    //model.addAttribute("frontendok", FrontEndOK.getMessage());
-    model.addAttribute("frontenderror", FrontEndError.getMessage());
-    model.addAttribute("messagelist", chatMessageService.getMessages());
+
+    String currentLogLevel = System.getenv("CHAT_APP_LOGLEVEL");
+
+    if (currentLogLevel != null && currentLogLevel.equals("INFO")) {
+      System.out.println(new LogMessage("INFO", "/", "GET", ""));
+    }
+    model.addAttribute("userentry", nameOfUser.getUsername());
+    model.addAttribute("messages", messagesRepository.findAll());
     return "index";
   }
 
-  @GetMapping("/enter")
-  public String enter(Model model) {
-    //model.addAttribute("frontendok", FrontEndOK.getMessage());
-    model.addAttribute("frontenderror", FrontEndError.getMessage());
-    return "enter";
+  @GetMapping(value = "/enter")
+  public String registerPage(Model model) {
+    model.addAttribute("userentry", nameOfUser.getUsername());
+    return "register";
   }
 
-  @GetMapping("/registeruser")
-  public String register(@RequestParam(value="username") String username) {
-    return userService.registerUser(username);
+  @PostMapping(value = "/enter")
+  public String addNewUser(String userentry) {
+    if (userentry.equals("")) {
+      return "register-error";
+    }
+    nameOfUser.setUsername(userentry);
+    nameOfUser.setId(1l);
+    repository.save(nameOfUser);
+    return "redirect:/";
   }
 
-  @GetMapping("/updateuser")
-  public String update(@RequestParam(value="username") String username) {
-    return userService.updateUser(username);
-  }
+  String url = "http://phorv1chatapp.herokuapp.com/api/message/receive";
 
-  @PostMapping(value="/sendmessage")
-  public String addMessage(String message) throws Exception {
-    chatMessageService.addNewChatMessage(message);
-    TransferMessage transferMessage = new TransferMessage();
-    chatMessageService.addNewReceivedMessage(transferMessage);
+  @PostMapping(value = "/send")
+  public String addMessage(String messages) {
+    chatAppMessages.setId();
+    chatAppMessages.setUsername(nameOfUser.getUsername());
+    chatAppMessages.setText(messages);
+    chatAppMessages.setTimestamp(new Timestamp(System.currentTimeMillis()));
+    messagesRepository.save(chatAppMessages);
+
+    client.setId("dorinagy");
+    JsonReceived json = new JsonReceived();
+    json.setMessage(chatAppMessages);
+    json.setClient(client);
+    restTemplate.postForObject(url, json, JsonReceived.class);
     return "redirect:/";
   }
 }
