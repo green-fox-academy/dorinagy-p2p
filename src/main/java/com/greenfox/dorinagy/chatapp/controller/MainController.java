@@ -76,10 +76,13 @@ public class MainController {
     return "redirect:/";
   }
 
-  String url = "http://greenfox-chat-app.herokuapp.com/api/message/receive";
+  String url = "http://phorv1chatapp.herokuapp.com/api/message/receive";
 
   @PostMapping(value = "/send")
   public String addMessage(@RequestParam(name = "messages") String messages) {
+    if(messages.equals("")) {
+      return "redirect:/";
+    }
     chatAppMessages.setId();
     chatAppMessages.setUsername(nameOfUser.getUsername());
     chatAppMessages.setText(messages);
