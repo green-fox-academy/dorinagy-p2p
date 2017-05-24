@@ -1,5 +1,7 @@
 package com.greenfox.dorinagy.chatapp.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -8,10 +10,11 @@ import java.util.List;
  * Created by Nagy Dóra on 2017.05.19..
  */
 @Component
+@JsonInclude(Include.NON_NULL)
 public class Status {
 
   private String status;
-  private List message;
+  private String message;
 
   public String getStatus() {
     return status;
@@ -22,10 +25,14 @@ public class Status {
   }
 
   public void setMessage(List<String> message) {
-    this.message = message;
+    this.message = "Missing field(s): ";
+    for (String field : message) {
+      this.message += field + ", ";
+    }
+    this.message = this.message.substring(0, this.message.length() - 2);
   }
 
-  public List getMessage() {
+  public String getMessage() {
     return message;
   }
 }
