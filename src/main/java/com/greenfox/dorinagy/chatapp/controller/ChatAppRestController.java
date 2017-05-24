@@ -2,7 +2,7 @@ package com.greenfox.dorinagy.chatapp.controller;
 
 import com.greenfox.dorinagy.chatapp.model.JsonReceived;
 import com.greenfox.dorinagy.chatapp.model.Status;
-import com.greenfox.dorinagy.chatapp.service.MessageRepository;
+import com.greenfox.dorinagy.chatapp.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;

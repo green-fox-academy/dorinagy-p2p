@@ -4,7 +4,8 @@
     <meta charset="UTF-8"/>
     <title>Chat App</title>
     <meta http-equiv="refresh" content="30"/>
-    <link href="webjars/bootstrap/3.3.7-1/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet"
+          href="webjars/bootstrap/3.3.7-1/css/bootstrap.min.css" />
 </head>
 <body>
 <div class="container-fluid">
@@ -12,14 +13,11 @@
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8">
-            
-            <div class="alert alert-danger" role="alert"></div>
-
             <div class="panel panel-default">
                 <div class="panel-heading">User</div>
                 <div class="panel-body">
                     <table>
-                        <form action="/enter">
+                        <form action="@{/enter}" method="post">
                             <tr>
                                 <td><strong>Your username</strong></td>
                                 <td><input type="text" th:value="${userentry}" name="userentry"/></td>
@@ -33,18 +31,24 @@
                 <div class="panel-heading">Chat</div>
                 <div class="panel-body">
                     <ul>
-                        <li><span class="btn btn-primary btn-sm"><strong>Hi there! Submit your message using the send button!</strong></span></li>
+                        <li>
+                            <span class="btn btn-primary btn-sm">
+                                <strong>Hi there! Submit your message using the send button!</strong>
+                            </span>
+                        </li>
                         <p>App</p>
                     </ul>
                     <ul th:each="message : ${messages}">
-                        <li><span class="btn btn-primary btn-sm" th:text="${message.getText()}">message</span></li>
+                        <li>
+                            <span class="btn btn-primary btn-sm" th:text="${message.getText()}">message</span>
+                        </li>
                         <p th:text="${message.getUsername()}">username</p>
                     </ul>
                     <table>
                         <p><strong>Message</strong></p>
-                        <form action="/send" method="post">
+                        <form action="@{/send}" method="post">
                             <tr>
-                                <td><textarea type="text" name="message"/></td>
+                                <td><textarea class="form-control"> Write your message here</textarea></td>
                             </tr>
                             <tr>
                                 <td><input class="btn btn-primary btn-sm" type="submit" value="send"/>

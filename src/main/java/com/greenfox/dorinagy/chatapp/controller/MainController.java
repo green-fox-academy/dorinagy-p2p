@@ -1,8 +1,8 @@
 package com.greenfox.dorinagy.chatapp.controller;
 
 import com.greenfox.dorinagy.chatapp.model.*;
-import com.greenfox.dorinagy.chatapp.service.MessageRepository;
-import com.greenfox.dorinagy.chatapp.service.UserRepository;
+import com.greenfox.dorinagy.chatapp.repository.MessageRepository;
+import com.greenfox.dorinagy.chatapp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +19,7 @@ import java.sql.Timestamp;
 public class MainController {
 
   @Autowired
-  UserRepository repository;
+  UserRepository userRepository;
   @Autowired
   ChatAppUser nameOfUser;
   @Autowired
@@ -53,10 +53,20 @@ public class MainController {
     if (currentLogLevel != null && currentLogLevel.equals("INFO")) {
       System.out.println(new LogMessage("INFO", "/", "GET", ""));
     }
+
     model.addAttribute("userentry", nameOfUser.getUsername());
     model.addAttribute("messages", messagesRepository.findAll());
     return "index";
   }
+
+  /*@PostMapping(value = "/")
+  public String updateUser(String userentry, Model model) {
+    if (userentry.equals("")) {
+      model.addAttribute("userentry", userentry);
+      return "redirect:/";
+    } else
+      return "redirect:/enter";
+  }*/
 
   @GetMapping(value = "/enter")
   public String registerPage(Model model) {
@@ -65,13 +75,14 @@ public class MainController {
   }
 
   @PostMapping(value = "/enter")
-  public String addNewUser(String userentry) {
+  public String addNewUser(String userentry, Model model) {
     if (userentry.equals("")) {
-      return "";
+      model.addAttribute("userentry", userentry);
+      return "register-error";
     }
     nameOfUser.setUsername(userentry);
     nameOfUser.setId(1l);
-    repository.save(nameOfUser);
+    userRepository.save(nameOfUser);
     return "redirect:/";
   }
 
