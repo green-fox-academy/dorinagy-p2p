@@ -1,17 +1,16 @@
 package com.greenfox.dorinagy.chatapp.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 /**
- * Created by Nagy Dóra on 2017.05.19..
+ * Created by Nagy Dóra on 2017.05.24..
  */
 @Component
-@JsonInclude(Include.NON_NULL)
-public class Status {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class StatusError {
 
   private String status;
   private String message;

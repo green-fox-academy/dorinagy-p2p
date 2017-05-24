@@ -1,7 +1,8 @@
 package com.greenfox.dorinagy.chatapp.controller;
 
 import com.greenfox.dorinagy.chatapp.model.JsonReceived;
-import com.greenfox.dorinagy.chatapp.model.Status;
+import com.greenfox.dorinagy.chatapp.model.StatusError;
+import com.greenfox.dorinagy.chatapp.model.StatusOk;
 import com.greenfox.dorinagy.chatapp.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -21,7 +22,10 @@ public class ChatAppRestController {
   MessageRepository messagesRepository;
 
   @Autowired
-  Status status;
+  StatusOk statusOk;
+
+  @Autowired
+  StatusError statusError;
 
   RestTemplate restTemplate = new RestTemplate();
 
@@ -29,7 +33,7 @@ public class ChatAppRestController {
 
   @CrossOrigin("*")
   @RequestMapping(value = "/api/message/receive")
-  public Status receiveMessage(@RequestBody JsonReceived jsonReceived) {
+  public Object receiveMessage(@RequestBody JsonReceived jsonReceived) {
 
     List<String> errors = new ArrayList<>();
 
@@ -49,18 +53,18 @@ public class ChatAppRestController {
       errors.add("client.id");
     }
 
-    if (!jsonReceived.getClient().getId().equals(System.getenv("CHAT_APP_UNIQUE_ID"))) {
+    if (!jsonReceived.getClient().getId().equals("dorinagy")) {
       if (errors.size() == 0) {
-        status.setStatus("ok");
-
+        statusOk.setStatus("ok");
         messagesRepository.save(jsonReceived.getMessage());
-        restTemplate.postForObject(url, jsonReceived, Status.class);
+        restTemplate.postForObject(url, jsonReceived, StatusOk.class);
       } else {
-        status.setStatus("error");
-        status.setMessage(errors);
+        statusError.setStatus("error");
+        statusError.setMessage(errors);
       }
+    } else {
+      statusOk.setStatus("ok");
     }
-
-    return status;
+    return (errors.size() == 0) ? statusOk : statusError;
   }
 }
