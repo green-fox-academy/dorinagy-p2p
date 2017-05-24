@@ -59,15 +59,6 @@ public class MainController {
     return "index";
   }
 
-  /*@PostMapping(value = "/")
-  public String updateUser(String userentry, Model model) {
-    if (userentry.equals("")) {
-      model.addAttribute("userentry", userentry);
-      return "redirect:/";
-    } else
-      return "redirect:/enter";
-  }*/
-
   @GetMapping(value = "/enter")
   public String registerPage(Model model) {
     model.addAttribute("userentry", nameOfUser.getUsername());
@@ -75,10 +66,9 @@ public class MainController {
   }
 
   @PostMapping(value = "/enter")
-  public String addNewUser(String userentry, Model model) {
+  public String addNewUser(@RequestParam(name = "userentry") String userentry) {
     if (userentry.equals("")) {
-      model.addAttribute("userentry", userentry);
-      return "register-error";
+      return "redirect:/";
     }
     nameOfUser.setUsername(userentry);
     nameOfUser.setId(1l);
@@ -86,10 +76,10 @@ public class MainController {
     return "redirect:/";
   }
 
-  String url = "http://phorv1chatapp.herokuapp.com/api/message/receive";
+  String url = "http://greenfox-chat-app.herokuapp.com/api/message/receive";
 
   @PostMapping(value = "/send")
-  public String addMessage(String messages) {
+  public String addMessage(@RequestParam(name = "messages") String messages) {
     chatAppMessages.setId();
     chatAppMessages.setUsername(nameOfUser.getUsername());
     chatAppMessages.setText(messages);

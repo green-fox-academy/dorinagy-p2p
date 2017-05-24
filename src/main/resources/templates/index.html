@@ -13,11 +13,14 @@
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8">
+
+            <div class="alert alert-danger" role="alert">Username field is empty</div>
+
             <div class="panel panel-default">
                 <div class="panel-heading">User</div>
                 <div class="panel-body">
                     <table>
-                        <form action="@{/enter}" method="post">
+                        <form action="/enter" method="post">
                             <tr>
                                 <td><strong>Your username</strong></td>
                                 <td><input type="text" th:value="${userentry}" name="userentry"/></td>
@@ -46,9 +49,9 @@
                     </ul>
                     <table>
                         <p><strong>Message</strong></p>
-                        <form action="@{/send}" method="post">
+                        <form action="/send" method="post">
                             <tr>
-                                <td><textarea class="form-control"> Write your message here</textarea></td>
+                                <td><textarea name="messages" class="form-control"> Write your message here</textarea></td>
                             </tr>
                             <tr>
                                 <td><input class="btn btn-primary btn-sm" type="submit" value="send"/>
