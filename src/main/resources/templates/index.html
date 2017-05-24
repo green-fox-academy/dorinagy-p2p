@@ -37,6 +37,14 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Chat</div>
                 <div class="panel-body">
+
+                    <ul th:each="message : ${messages}">
+                        <li>
+                            <span class="btn btn-primary btn-sm" th:text="${message.getText()}">message</span>
+                        </li>
+                        <p th:text="${message.getUsername()}">username</p>
+                    </ul>
+
                     <ul>
                         <li>
                             <span class="btn btn-primary btn-sm">
@@ -45,12 +53,7 @@
                         </li>
                         <p>App</p>
                     </ul>
-                    <ul th:each="message : ${messages}">
-                        <li>
-                            <span class="btn btn-primary btn-sm" th:text="${message.getText()}">message</span>
-                        </li>
-                        <p th:text="${message.getUsername()}">username</p>
-                    </ul>
+
                     <table>
                         <p><strong>Message</strong></p>
                         <form action="/send" method="post">

@@ -1,5 +1,6 @@
 package com.greenfox.dorinagy.chatapp.controller;
 
+import com.greenfox.dorinagy.chatapp.model.ChatAppMessage;
 import com.greenfox.dorinagy.chatapp.model.JsonReceived;
 import com.greenfox.dorinagy.chatapp.model.Status;
 import com.greenfox.dorinagy.chatapp.repository.MessageRepository;
@@ -25,7 +26,7 @@ public class ChatAppRestController {
 
   RestTemplate restTemplate = new RestTemplate();
 
-  String url = "http://lengyelnorbert.herokuapp.com/api/message/receive";
+  String url = "https://lengyelnorbert.herokuapp.com/api/message/receive";
 
   @CrossOrigin("*")
   @RequestMapping(value = "/api/message/receive")
@@ -51,8 +52,9 @@ public class ChatAppRestController {
 
     if (errors.size() == 0) {
       status.setStatus("ok");
+
       messagesRepository.save(jsonReceived.getMessage());
-      restTemplate.postForObject(url, jsonReceived, JsonReceived.class);
+      restTemplate.postForObject(url, jsonReceived, Status.class);
     } else {
       status.setStatus("error");
       status.setMessage(errors);
