@@ -55,7 +55,7 @@ public class MainController {
     }
 
     model.addAttribute("userentry", nameOfUser.getUsername());
-    model.addAttribute("messages", messagesRepository.findAll());
+    model.addAttribute("messages", messagesRepository.findAllByOrderByTimestampDesc());
     return "index";
   }
 

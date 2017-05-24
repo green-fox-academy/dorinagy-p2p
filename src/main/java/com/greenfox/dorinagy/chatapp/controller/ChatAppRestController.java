@@ -25,14 +25,11 @@ public class ChatAppRestController {
 
   RestTemplate restTemplate = new RestTemplate();
 
-  String url = "http://phorv1chatapp.herokuapp.com/api/message/receive";
+  String url = "http://lengyelnorbert.herokuapp.com/api/message/receive";
 
   @CrossOrigin("*")
   @RequestMapping(value = "/api/message/receive")
   public Status receiveMessage(@RequestBody JsonReceived jsonReceived) {
-
-    messagesRepository.save(jsonReceived.getMessage());
-    restTemplate.postForObject(url, jsonReceived, JsonReceived.class);
 
     List<String> errors = new ArrayList<>();
 
@@ -54,6 +51,8 @@ public class ChatAppRestController {
 
     if (errors.size() == 0) {
       status.setStatus("ok");
+      messagesRepository.save(jsonReceived.getMessage());
+      restTemplate.postForObject(url, jsonReceived, JsonReceived.class);
     } else {
       status.setStatus("error");
       status.setMessage(errors);
