@@ -1,6 +1,5 @@
 package com.greenfox.dorinagy.chatapp.controller;
 
-import com.greenfox.dorinagy.chatapp.model.ChatAppMessage;
 import com.greenfox.dorinagy.chatapp.model.JsonReceived;
 import com.greenfox.dorinagy.chatapp.model.Status;
 import com.greenfox.dorinagy.chatapp.repository.MessageRepository;
@@ -50,14 +49,16 @@ public class ChatAppRestController {
       errors.add("client.id");
     }
 
-    if (errors.size() == 0) {
-      status.setStatus("ok");
+    if (!jsonReceived.getClient().getId().equals(System.getenv("CHAT_APP_UNIQUE_ID"))) {
+      if (errors.size() == 0) {
+        status.setStatus("ok");
 
-      messagesRepository.save(jsonReceived.getMessage());
-      restTemplate.postForObject(url, jsonReceived, Status.class);
-    } else {
-      status.setStatus("error");
-      status.setMessage(errors);
+        messagesRepository.save(jsonReceived.getMessage());
+        restTemplate.postForObject(url, jsonReceived, Status.class);
+      } else {
+        status.setStatus("error");
+        status.setMessage(errors);
+      }
     }
 
     return status;
