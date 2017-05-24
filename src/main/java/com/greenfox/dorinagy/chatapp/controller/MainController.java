@@ -52,7 +52,6 @@ public class MainController {
 
     if (currentLogLevel != null && currentLogLevel.equals("INFO")) {
       System.out.println(new LogMessage("INFO", "/", "GET", ""));
-      System.out.println(new Timestamp());
     }
 
     model.addAttribute("userentry", nameOfUser.getUsername());
