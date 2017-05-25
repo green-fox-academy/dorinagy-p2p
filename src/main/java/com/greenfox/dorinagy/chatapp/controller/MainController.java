@@ -55,7 +55,7 @@ public class MainController {
     }
 
     model.addAttribute("userentry", nameOfUser.getUsername());
-    model.addAttribute("messages", messagesRepository.findAll());
+    model.addAttribute("messages", messagesRepository.findAllByOrderByTimestampDesc());
     return "index";
   }
 
@@ -67,8 +67,8 @@ public class MainController {
 
   @PostMapping(value = "/enter")
   public String addNewUser(@RequestParam(name = "userentry") String userentry) {
-    if (userentry.equals("")) {
-      return "redirect:/";
+    if (userentry.length() == 0) {
+      return "\"redirect:/?errorMessage=The username field is empty!\"";
     }
     nameOfUser.setUsername(userentry);
     nameOfUser.setId(1l);

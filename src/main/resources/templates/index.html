@@ -14,8 +14,6 @@
         <div class="col-md-2"></div>
         <div class="col-md-8">
 
-            <div class="alert alert-danger" role="alert">Username field is empty</div>
-
             <div class="panel panel-default">
                 <div class="panel-heading">User</div>
                 <div class="panel-body">
@@ -38,6 +36,15 @@
                 <div class="panel-heading">Chat</div>
                 <div class="panel-body">
 
+
+                    <ul th:each="message : ${messages}">
+                        <li>
+                            <span class="btn btn-primary btn-sm" th:text="${message.getText()}">message</span>
+                        </li>
+                        <p th:text="${message.getUsername()}">username</p>
+                    </ul>
+
+
                     <ul>
                         <li>
                             <span class="btn btn-primary btn-sm">
@@ -47,12 +54,6 @@
                         <p>App</p>
                     </ul>
 
-                    <ul th:each="message : ${messages}">
-                        <li>
-                            <span class="btn btn-primary btn-sm" th:text="${message.getText()}">message</span>
-                        </li>
-                        <p th:text="${message.getUsername()}">username</p>
-                    </ul>
 
                     <table>
                         <p><strong>Message</strong></p>
