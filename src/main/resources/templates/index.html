@@ -17,8 +17,6 @@
             <h1>Peer to Peer Chat program</h1>
             <h2></h2>
 
-            <div class="alert alert-danger" role="alert">The Username field is empty!</div>
-
             <div class="panel panel-default">
                 <div class="panel-heading">User</div>
                 <div class="panel-body">
@@ -41,7 +39,7 @@
                 <div class="panel-heading">Chat</div>
                 <div id="scroll" style="overflow-y: scroll; max-height: 300px" class="panel-body">
 
-                    
+
                     <ul th:each="message : ${messages}">
                         <li>
                             <span th:onclick="'showTimestamp(\'' + ${message.getTimestamp()} + '\');'" class="btn btn-primary btn-sm" th:text="${message.getText()}">message</span>

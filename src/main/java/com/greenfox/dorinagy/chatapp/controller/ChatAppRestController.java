@@ -33,7 +33,6 @@ public class ChatAppRestController {
 
   RestTemplate restTemplate = new RestTemplate();
 
-  //String url = "https://phorv1chatapp.herokuapp.com/api/message/receive";
   String url = "https://zsiguli-chat-app.herokuapp.com/api/message/receive";
 
   @CrossOrigin("*")
@@ -58,8 +57,7 @@ public class ChatAppRestController {
       errors.add("client.id");
     }
 
-    if (!jsonReceived.getClient().getId().equals("dorinagy")
-            && !messagesRepository.findOne(chatAppMessage.getId()).getTimestamp().equals(jsonReceived.getMessage().getTimestamp())) {
+    if (!jsonReceived.getClient().getId().equals("dorinagy")) {
 
       if (errors.size() == 0) {
         statusOk.setStatus("ok");

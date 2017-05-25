@@ -68,7 +68,7 @@ public class MainController {
   @PostMapping(value = "/enter")
   public String addNewUser(@RequestParam(name = "userentry") String userentry) {
     if (userentry.length() == 0) {
-      return "\"redirect:/?errorMessage=The username field is empty!\"";
+      return "register-error";
     }
     nameOfUser.setUsername(userentry);
     nameOfUser.setId(1l);
@@ -76,12 +76,11 @@ public class MainController {
     return "redirect:/";
   }
 
-  //String url = "http://phorv1chatapp.herokuapp.com/api/message/receive";
   String url = "https://zsiguli-chat-app.herokuapp.com/api/message/receive";
 
   @PostMapping(value = "/send")
   public String addMessage(@RequestParam(name = "messages") String messages) {
-    if(messages.equals("")) {
+    if (messages.equals("")) {
       return "redirect:/";
     }
     chatAppMessages.setId();
