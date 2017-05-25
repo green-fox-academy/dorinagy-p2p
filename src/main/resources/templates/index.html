@@ -39,7 +39,8 @@
 
                     <ul th:each="message : ${messages}">
                         <li>
-                            <span class="btn btn-primary btn-sm" th:text="${message.getText()}">message</span>
+                            <span th:onclick="'showTimestamp(\'' + ${message.getTimestamp()} + '\');'" class="btn btn-primary btn-sm" th:text="${message.getText()}">message</span>
+                            <div th:id="'timestamp-' + ${message.getTimestamp()}" style="display:none" th:text="${message.getTimestamp()}"></div>
                         </li>
                         <p th:text="${message.getUsername()}">username</p>
                     </ul>
@@ -76,5 +77,6 @@
 </div>
 <script src="webjars/jquery/1.11.1/jquery.min.js"></script>
 <script src="webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>
+<script src="/script.js"></script>
 </body>
 </html>
