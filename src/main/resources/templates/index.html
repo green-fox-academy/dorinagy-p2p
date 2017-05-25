@@ -5,7 +5,7 @@
     <title>Chat App</title>
     <meta http-equiv="refresh" content="30"/>
     <link rel="stylesheet"
-          href="webjars/bootstrap/3.3.7-1/css/bootstrap.min.css" />
+          href="webjars/bootstrap/3.3.7-1/css/bootstrap.min.css"/>
 </head>
 <body>
 <div class="container-fluid">
@@ -39,11 +39,12 @@
                 <div class="panel-heading">Chat</div>
                 <div id="scroll" style="overflow-y: scroll; max-height: 300px" class="panel-body">
 
-
                     <ul th:each="message : ${messages}">
                         <li>
-                            <span th:onclick="'showTimestamp(\'' + ${message.getTimestamp()} + '\');'" class="btn btn-primary btn-sm" th:text="${message.getText()}">message</span>
-                            <div th:id="'timestamp-' + ${message.getTimestamp()}" style="display:none" th:text="${message.getTimestamp()}"></div>
+                            <span th:onclick="'showTimestamp(\'' + ${message.getTimestamp()} + '\');'"
+                                  class="btn btn-primary btn-sm" th:text="${message.getText()}">message</span>
+                            <div th:id="'timestamp-' + ${message.getTimestamp()}" style="display:none"
+                                 th:text="${message.getTimestamp()}"></div>
                         </li>
                         <p th:text="${message.getUsername()}">username</p>
                     </ul>
@@ -57,24 +58,32 @@
                         </li>
                         <p>App</p>
                     </ul>
+                </div>
+            </div>
 
-
+            <div class="panel panel-default">
+                <div class="panel-heading">Send Message</div>
+                <div
+                        class="panel-body">
                     <table>
                         <p><strong>Message</strong></p>
                         <form action="/send" method="post">
                             <tr>
 
-                                <td><textarea class="form-control" name="messages">Write your message here</textarea></td>
+                                <td><textarea class="form-control"
+                                              name="messages">Write your message here</textarea></td>
 
                             </tr>
                             <tr>
                                 <td><input class="btn btn-primary btn-sm" type="submit" value="send"/>
-                                    <a class="btn btn-default btn-sm glyphicon glyphicon-refresh" th:href="@{'/'}"></a></td>
+                                    <a class="btn btn-default btn-sm glyphicon glyphicon-refresh"
+                                       th:href="@{'/'}"></a></td>
                             </tr>
                         </form>
                     </table>
                 </div>
             </div>
+
         </div>
     </div>
 </div>
