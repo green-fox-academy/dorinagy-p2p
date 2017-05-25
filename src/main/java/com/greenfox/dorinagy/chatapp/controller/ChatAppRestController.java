@@ -1,5 +1,6 @@
 package com.greenfox.dorinagy.chatapp.controller;
 
+import com.greenfox.dorinagy.chatapp.model.ChatAppMessage;
 import com.greenfox.dorinagy.chatapp.model.JsonReceived;
 import com.greenfox.dorinagy.chatapp.model.StatusError;
 import com.greenfox.dorinagy.chatapp.model.StatusOk;
@@ -20,6 +21,9 @@ public class ChatAppRestController {
 
   @Autowired
   MessageRepository messagesRepository;
+
+  @Autowired
+  ChatAppMessage chatAppMessage;
 
   @Autowired
   StatusOk statusOk;
@@ -53,7 +57,8 @@ public class ChatAppRestController {
       errors.add("client.id");
     }
 
-    if (!jsonReceived.getClient().getId().equals("dorinagy")) {
+    if (!jsonReceived.getClient().getId().equals("dorinagy") || !messagesRepository.findOne(chatAppMessage.getId()).getTimestamp().equals(jsonReceived.getMessage().getTimestamp())) {
+
       if (errors.size() == 0) {
         statusOk.setStatus("ok");
         messagesRepository.save(jsonReceived.getMessage());
