@@ -9,10 +9,13 @@
 </head>
 <body>
 <div class="container-fluid">
-    <h1>Peer to Peer Chat program</h1>
+
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8">
+
+            <h1>Peer to Peer Chat program</h1>
+            <h2></h2>
 
             <div class="alert alert-danger" role="alert">The Username field is empty!</div>
 
@@ -36,9 +39,9 @@
 
             <div class="panel panel-default">
                 <div class="panel-heading">Chat</div>
-                <div class="panel-body">
+                <div id="scroll" style="overflow-y: scroll; max-height: 300px" class="panel-body">
 
-
+                    
                     <ul th:each="message : ${messages}">
                         <li>
                             <span th:onclick="'showTimestamp(\'' + ${message.getTimestamp()} + '\');'" class="btn btn-primary btn-sm" th:text="${message.getText()}">message</span>
