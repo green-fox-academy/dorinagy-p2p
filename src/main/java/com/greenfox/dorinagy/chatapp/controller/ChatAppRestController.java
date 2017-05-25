@@ -59,7 +59,7 @@ public class ChatAppRestController {
     }
 
     if (!jsonReceived.getClient().getId().equals("dorinagy")
-            || !messagesRepository.findOne(chatAppMessage.getId()).getTimestamp().equals(jsonReceived.getMessage().getTimestamp())) {
+            && !messagesRepository.findOne(chatAppMessage.getId()).getTimestamp().equals(jsonReceived.getMessage().getTimestamp())) {
 
       if (errors.size() == 0) {
         statusOk.setStatus("ok");
