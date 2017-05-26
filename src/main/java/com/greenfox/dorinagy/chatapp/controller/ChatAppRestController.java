@@ -1,9 +1,6 @@
 package com.greenfox.dorinagy.chatapp.controller;
 
-import com.greenfox.dorinagy.chatapp.model.ChatAppMessage;
-import com.greenfox.dorinagy.chatapp.model.JsonReceived;
-import com.greenfox.dorinagy.chatapp.model.StatusError;
-import com.greenfox.dorinagy.chatapp.model.StatusOk;
+import com.greenfox.dorinagy.chatapp.model.*;
 import com.greenfox.dorinagy.chatapp.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -31,9 +28,22 @@ public class ChatAppRestController {
   @Autowired
   StatusError statusError;
 
+  @Autowired
+  MessageResponse messageResponse;
+
   RestTemplate restTemplate = new RestTemplate();
 
   String url = "https://zsiguli-chat-app.herokuapp.com/api/message/receive";
+
+  @GetMapping(value="/api/messages")
+  public Object getMessages() {
+    return messageResponse;
+  }
+
+  @PostMapping(value="/api/messages")
+  public Object postMessages() {
+    return messageResponse;
+  }
 
   @CrossOrigin("*")
   @RequestMapping(value = "/api/message/receive")
